@@ -4,7 +4,7 @@
 #include "mbed.h"
 
 
-/* This Class handles a rotary encoder with mechanical switches and an integrated pushbutton
+/** This Class handles a rotary encoder with mechanical switches and an integrated pushbutton
  * It uses two pins, one creating an interrupt on change.
  * Rotation direction is determined by checking the state of the other pin.
  * Additionally a pushbutton switch is detected
@@ -14,7 +14,7 @@
  * A new value can be set by Set(value) or opperator=.
  *
  * Autor: Thomas Raab (Raabinator)
- * Extendey by Karl Zweimueller (charly)
+ * Extended by Karl Zweimueller (charly)
  *
  * Dent steady point     !     !     !
  *                    +-----+     +-----+
