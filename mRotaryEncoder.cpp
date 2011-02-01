@@ -18,7 +18,7 @@ mRotaryEncoder::mRotaryEncoder(PinName pinA, PinName pinB, PinName pinSW, PinMod
     m_pinSW = new PinDetect(pinSW);                 // interrupt on press switch
     m_pinSW->mode(pullMode);
     
-    m_pinSW->setSampleFrequency(); // Defaults to 20ms.
+    m_pinSW->setSampleFrequency(debounceTime_us);                  // Start timers an Defaults debounce time.
 
 
     m_position = 0;

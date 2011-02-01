@@ -78,7 +78,7 @@ public:
     * @param fptr Pointer to callback-function
     */
     void attachSW(void (*fptr)(void)) {
-        m_pinSW->attach_asserted(fptr);
+        m_pinSW->attach_deasserted(fptr);
     }
 
     template<typename T>
@@ -90,7 +90,7 @@ public:
     */
     void attachSW(T* tptr, void (T::*mptr)(void)) {
         if ((mptr != NULL) && (tptr != NULL)) {
-            m_pinSW->fall(tptr, mptr);
+            m_pinSW->attach_deasserted(tptr, mptr);
         }
     }
 
