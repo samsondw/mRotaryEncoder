@@ -2,6 +2,7 @@
 #define MROTENC_H_INCLUDED
 
 #include "mbed.h"
+#include "PinDetect.h"
 
 
 /** This Class handles a rotary encoder with mechanical switches and an integrated pushbutton
@@ -77,7 +78,7 @@ public:
     * @param fptr Pointer to callback-function
     */
     void attachSW(void (*fptr)(void)) {
-        m_pinSW->fall(fptr);
+        m_pinSW->attach_asserted(fptr);
     }
 
     template<typename T>
@@ -125,7 +126,8 @@ private:
 
     int             m_debounceTime_us;
 
-    InterruptIn     *m_pinSW;
+    //InterruptIn     *m_pinSW;
+    PinDetect       *m_pinSW;
 
     void rise(void);
     void fall(void);
