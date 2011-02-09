@@ -33,6 +33,7 @@
  * 09. Nov. 2010
  *     First version published Thomas Raab raabinator
  * 26.11.2010 extended by charly - pushbutton, pullmode, debounce, callback-system
+ * Feb2011 Changes InterruptIn to PinDetect which does the debounce of mechanical switches
  *
  */
 class mRotaryEncoder {
@@ -120,13 +121,13 @@ public:
 
 
 private:
-    InterruptIn     *m_pinA;
+    PinDetect       *m_pinA;
     DigitalIn       *m_pinB;
     volatile int    m_position;
 
     int             m_debounceTime_us;
 
-    //InterruptIn     *m_pinSW;
+
     PinDetect       *m_pinSW;
 
     void rise(void);

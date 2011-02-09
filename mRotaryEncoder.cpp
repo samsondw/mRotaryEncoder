@@ -3,7 +3,7 @@
 
 
 mRotaryEncoder::mRotaryEncoder(PinName pinA, PinName pinB, PinName pinSW, PinMode pullMode, int debounceTime_us) {
-    m_pinA = new InterruptIn(pinA);                    // interrrupts on pinA
+    m_pinA = new PinDetect(pinA);                      // interrrupts on pinA
     m_pinB = new DigitalIn(pinB);                      // only digitalIn for pinB
 
     //set pins with internal PullUP-default
@@ -11,8 +11,11 @@ mRotaryEncoder::mRotaryEncoder(PinName pinA, PinName pinB, PinName pinSW, PinMod
     m_pinB->mode(pullMode);
 
     // attach interrrupts on pinA
-    m_pinA->rise(this, &mRotaryEncoder::rise);
-    m_pinA->fall(this, &mRotaryEncoder::fall);
+    m_pinA->attach_asserted(this, &mRotaryEncoder::rise);
+    m_pinA->attach_deasserted(this, &mRotaryEncoder::fall);
+    
+    //start sampling pinA
+    m_pinA->setSampleFrequency(debounceTime_us);                  // Start timers an Defaults debounce time.
 
     // Switch on pinSW
     m_pinSW = new PinDetect(pinSW);                 // interrupt on press switch
@@ -44,10 +47,7 @@ void mRotaryEncoder::Set(int value) {
 
 
 void mRotaryEncoder::fall(void) {
-    //no interrupts
-    m_pinA->rise(NULL);
-    m_pinA->fall(NULL);
-    wait_us(m_debounceTime_us);            // wait while switch is bouncing
+    // debouncing does PinDetect for us
     //pinA still low?
     if (*m_pinA == 0) {
         if (*m_pinB == 1) {
@@ -56,17 +56,11 @@ void mRotaryEncoder::fall(void) {
             m_position--;
         }
     }
-    //reenable interrupts
-    m_pinA->rise(this, &mRotaryEncoder::rise);
-    m_pinA->fall(this, &mRotaryEncoder::fall);
     rotIsr.call();                        // call the isr for rotation
 }
 
 void mRotaryEncoder::rise(void) {
-    //no interrupts
-    m_pinA->rise(NULL);
-    m_pinA->fall(NULL);
-    wait_us(m_debounceTime_us);            // wait while switch is bouncing
+    //PinDetect does debouncing
     //pinA still high?
     if (*m_pinA == 1) {
         if (*m_pinB == 1) {
@@ -75,9 +69,6 @@ void mRotaryEncoder::rise(void) {
             m_position++;
         }
     }
-    //reenable interrupts
-    m_pinA->rise(this, &mRotaryEncoder::rise);
-    m_pinA->fall(this, &mRotaryEncoder::fall);
     rotIsr.call();                        // call the isr for rotation
 }
 
