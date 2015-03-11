@@ -98,7 +98,7 @@ public:
 
     /**  callback-System for rotation of shaft
     *
-    *  attach a function to be called when the shaft is rotaded
+    *  attach a function to be called when the shaft is rotated
     *  keep this function short, as no interrrupts can occour within
     *
     * @param fprt Pointer to callback-function
@@ -109,7 +109,7 @@ public:
 
 
     template<typename T>
-    /** attach an object member function to be called when shaft is rotaded
+    /** attach an object member function to be called when shaft is rotated
     *
     * @param tptr pointer to object
     * @param mprt pointer ro member function
@@ -123,7 +123,7 @@ public:
 
    /**  callback-System for rotation of shaft CW
     *
-    *  attach a function to be called when the shaft is rotaded clockwise
+    *  attach a function to be called when the shaft is rotated clockwise
     *  keep this function short, as no interrrupts can occour within
     *
     * @param fprt Pointer to callback-function
@@ -134,7 +134,7 @@ public:
 
 
     template<typename T>
-    /** attach an object member function to be called when shaft is rotaded clockwise
+    /** attach an object member function to be called when shaft is rotated clockwise
     *
     * @param tptr pointer to object
     * @param mprt pointer ro member function
@@ -148,7 +148,7 @@ public:
 
    /**  callback-System for rotation of shaft CCW
     *
-    *  attach a function to be called when the shaft is rotaded counterclockwise
+    *  attach a function to be called when the shaft is rotated counterclockwise
     *  keep this function short, as no interrrupts can occour within
     *
     * @param fprt Pointer to callback-function
@@ -159,7 +159,7 @@ public:
 
 
     template<typename T>
-    /** attach an object member function to be called when shaft is rotaded CCW
+    /** attach an object member function to be called when shaft is rotated CCW
     *
     * @param tptr pointer to object
     * @param mprt pointer ro member function
@@ -189,11 +189,18 @@ protected:
       * Callback system.
       * @ingroup INTERNALS
       */
-    // rotated any direction
+    /**
+     * rotated any direction
+    */
     FunctionPointer rotIsr;
-    // clockwise rotated
+    /**
+     * clockwise rotated
+    */
     FunctionPointer rotCWIsr;
-    //counterclockwise rotated
+
+    /**
+     * counterclockwise rotated
+    */    
     FunctionPointer rotCCWIsr;
 
 
