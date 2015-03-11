@@ -52,8 +52,10 @@ void mRotaryEncoder::fall(void) {
     if (*m_pinA == 0) {
         if (*m_pinB == 1) {
             m_position++;
+            rotCWIsr.call();
         } else {
             m_position--;
+            rotCCWIsr.call();
         }
     }
     rotIsr.call();                        // call the isr for rotation
@@ -65,8 +67,10 @@ void mRotaryEncoder::rise(void) {
     if (*m_pinA == 1) {
         if (*m_pinB == 1) {
             m_position--;
+            rotCCWIsr.call();
         } else {
             m_position++;
+            rotCWIsr.call();
         }
     }
     rotIsr.call();                        // call the isr for rotation

@@ -74,6 +74,7 @@ public:
     }
 
     /** attach a function to be called when switch is pressed
+    *
     * keep this function short, as no interrrupts can occour within
     *
     * @param fptr Pointer to callback-function
@@ -96,7 +97,8 @@ public:
     }
 
     /**  callback-System for rotation of shaft
-    * attach a function to be called when the shaft is rotaded
+    *
+    *  attach a function to be called when the shaft is rotaded
     *  keep this function short, as no interrrupts can occour within
     *
     * @param fprt Pointer to callback-function
@@ -119,6 +121,55 @@ public:
         }
     }
 
+   /**  callback-System for rotation of shaft CW
+    *
+    *  attach a function to be called when the shaft is rotaded clockwise
+    *  keep this function short, as no interrrupts can occour within
+    *
+    * @param fprt Pointer to callback-function
+    */
+    void attachROTCW(void (*fptr)(void)) {
+        rotCWIsr.attach(fptr);
+    }
+
+
+    template<typename T>
+    /** attach an object member function to be called when shaft is rotaded clockwise
+    *
+    * @param tptr pointer to object
+    * @param mprt pointer ro member function
+    *
+    */
+    void attachROTCW(T* tptr, void (T::*mptr)(void)) {
+        if ((mptr != NULL) && (tptr != NULL)) {
+            rotCWIsr.attach(tptr, mptr);
+        }
+    }
+
+   /**  callback-System for rotation of shaft CCW
+    *
+    *  attach a function to be called when the shaft is rotaded counterclockwise
+    *  keep this function short, as no interrrupts can occour within
+    *
+    * @param fprt Pointer to callback-function
+    */
+    void attachROTCCW(void (*fptr)(void)) {
+        rotCCWIsr.attach(fptr);
+    }
+
+
+    template<typename T>
+    /** attach an object member function to be called when shaft is rotaded CCW
+    *
+    * @param tptr pointer to object
+    * @param mprt pointer ro member function
+    *
+    */
+    void attachROTCCW(T* tptr, void (T::*mptr)(void)) {
+        if ((mptr != NULL) && (tptr != NULL)) {
+            rotCCWIsr.attach(tptr, mptr);
+        }
+    }    
 
 private:
     PinDetect       *m_pinA;
@@ -138,7 +189,12 @@ protected:
       * Callback system.
       * @ingroup INTERNALS
       */
+    // rotated any direction
     FunctionPointer rotIsr;
+    // clockwise rotated
+    FunctionPointer rotCWIsr;
+    //counterclockwise rotated
+    FunctionPointer rotCCWIsr;
 
 
 };
