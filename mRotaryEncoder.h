@@ -115,7 +115,7 @@ public:
     */
     void attachROT(T* tptr, void (T::*mptr)(void)) {
         if ((mptr != NULL) && (tptr != NULL)) {
-            rotISR.attach(tptr, mptr);
+            rotIsr.attach(tptr, mptr);
         }
     }
 
