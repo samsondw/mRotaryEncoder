@@ -57,8 +57,8 @@ void mRotaryEncoder::fall(void) {
             m_position--;
             rotCCWIsr.call();
         }
-    }
     rotIsr.call();                        // call the isr for rotation
+    }
 }
 
 void mRotaryEncoder::rise(void) {
@@ -72,7 +72,7 @@ void mRotaryEncoder::rise(void) {
             m_position++;
             rotCWIsr.call();
         }
-    }
     rotIsr.call();                        // call the isr for rotation
+    }
 }
 
